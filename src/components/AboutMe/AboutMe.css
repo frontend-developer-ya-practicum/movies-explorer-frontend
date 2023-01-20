@@ -18,6 +18,7 @@
   margin: 66px 0;
   display: flex;
   justify-content: space-between;
+  gap: 30px;
 }
 
 .student__info {
@@ -118,6 +119,10 @@
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
+  }
+
+  .student__info {
+    max-width: 292px;
   }
 
   .student__name {
