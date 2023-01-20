@@ -1,5 +1,5 @@
 .about-me {
-  margin: 110px 70px 100px;
+  padding: 110px 70px 100px;
 }
 
 .about-me__title {
@@ -76,7 +76,7 @@
 
 @media screen and (max-width: 1023px) {
   .about-me {
-    margin: 90px 50px;
+    padding: 90px 50px;
   }
 
   .student__info {
@@ -110,7 +110,7 @@
 
 @media screen and (max-width: 576px) {
   .about-me {
-    margin: 70px 14px;
+    padding: 70px 14px;
   }
 
   .student {
