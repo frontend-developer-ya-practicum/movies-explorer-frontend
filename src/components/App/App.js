@@ -2,7 +2,6 @@ import "./App.css";
 
 import { Route, Switch } from "react-router-dom";
 
-import Footer from "../Footer/Footer";
 import Login from "../Login/Login";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
@@ -17,7 +16,6 @@ function App() {
       <Switch>
         <Route exact path="/">
           <Main />
-          <Footer />
         </Route>
         <Route path="/profile">
           <Profile />
