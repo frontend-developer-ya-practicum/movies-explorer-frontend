@@ -9,6 +9,7 @@ import Movies from "../Movies/Movies";
 import NotFound from "../NotFound/NotFound";
 import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
+import SavedMovies from "../SavedMovies/SavedMovies";
 
 function App() {
   return (
@@ -29,6 +30,9 @@ function App() {
         </Route>
         <Route path="/movies">
           <Movies />
+        </Route>
+        <Route path="/saved-movies">
+          <SavedMovies />
         </Route>
         <Route path="*">
           <NotFound />
