@@ -5,6 +5,7 @@ const cards = [
     image: {
       url: "https://picsum.photos/536/353",
     },
+    _id: 1,
   },
   {
     nameRU: "Название фильма 2",
@@ -12,6 +13,7 @@ const cards = [
     image: {
       url: "https://picsum.photos/536/355",
     },
+    _id: 2,
   },
   {
     nameRU: "Название фильма 3",
@@ -19,6 +21,7 @@ const cards = [
     image: {
       url: "https://picsum.photos/536/356",
     },
+    _id: 3,
   },
 ];
 
