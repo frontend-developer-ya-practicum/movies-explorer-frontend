@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import Login from "../Login/Login";
 import Main from "../Main/Main";
+import Movies from "../Movies/Movies";
 import NotFound from "../NotFound/NotFound";
 import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
@@ -25,6 +26,9 @@ function App() {
         </Route>
         <Route path="/signin">
           <Login />
+        </Route>
+        <Route path="/movies">
+          <Movies />
         </Route>
         <Route path="*">
           <NotFound />
