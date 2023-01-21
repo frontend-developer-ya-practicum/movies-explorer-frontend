@@ -1,4 +1,4 @@
-import "./Logo";
+import "./Logo.css";
 
 import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
@@ -6,7 +6,7 @@ import logo from "../../images/logo.svg";
 function Logo() {
   return (
     <Link to="/" className="logo">
-      <img src={logo} alt="логотип" />
+      <img className="logo__image" src={logo} alt="логотип" />
     </Link>
   );
 }
