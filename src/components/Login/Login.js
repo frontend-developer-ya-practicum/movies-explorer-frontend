@@ -12,8 +12,13 @@ function Login() {
       formLink="/signup"
       formLinkText="Регистрация"
     >
-      <AuthFormInput title="E-mail" type="email" />
-      <AuthFormInput title="Пароль" type="password" />
+      <AuthFormInput title="E-mail" type="email" id="email" name="email" />
+      <AuthFormInput
+        title="Пароль"
+        type="password"
+        id="password"
+        name="password"
+      />
     </AuthForm>
   );
 }

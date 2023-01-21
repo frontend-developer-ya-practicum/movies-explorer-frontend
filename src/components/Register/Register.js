@@ -12,9 +12,14 @@ function Register() {
       formLink="/signin"
       formLinkText="Войти"
     >
-      <AuthFormInput title="Имя" type="username" />
-      <AuthFormInput title="E-mail" type="email" />
-      <AuthFormInput title="Пароль" type="password" />
+      <AuthFormInput title="Имя" type="text" id="username" name="username" />
+      <AuthFormInput title="E-mail" type="email" id="email" name="email" />
+      <AuthFormInput
+        title="Пароль"
+        type="password"
+        id="password"
+        name="password"
+      />
     </AuthForm>
   );
 }
