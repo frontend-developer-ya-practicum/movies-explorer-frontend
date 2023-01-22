@@ -1,6 +1,6 @@
 import "./MoviesCard.css";
 
-import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useState } from "react";
 
 function FormatDuration(duration_m) {
@@ -10,8 +10,8 @@ function FormatDuration(duration_m) {
 }
 
 function MoviesCard({ card }) {
-  const history = useHistory();
-  const isSavedLocation = history.location.pathname.includes("saved");
+  const location = useLocation();
+  const isSavedMoviesPage = location.pathname.includes("/saved");
 
   const [isSaved, setIsSaved] = useState(false);
 
@@ -19,7 +19,7 @@ function MoviesCard({ card }) {
     setIsSaved(!isSaved);
   }
 
-  const className = isSavedLocation
+  const className = isSavedMoviesPage
     ? "card__btn_type_delete"
     : isSaved
     ? "card__btn_type_saved"
