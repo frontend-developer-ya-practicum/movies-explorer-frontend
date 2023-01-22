@@ -15,7 +15,12 @@ function AboutMe() {
             ИКСИ. Прохожу курс Web-разработчик в Яндекс.Практикуме для
             расширения кругозора и изучения новых технологий.
           </p>
-          <a href="https://github.com/hikjik" className="student__github">
+          <a
+            href="https://github.com/hikjik"
+            className="student__github"
+            target="_blank"
+            rel="noreferrer"
+          >
             Github
           </a>
         </div>
