@@ -22,7 +22,11 @@ function AuthForm({
 
         <div className="form__submit-container">
           <span className="form__submit-error">Ошибка API</span>
-          <button type="submit" className="form__submit-button">
+          <button
+            type="submit"
+            className="form__submit-button"
+            aria-label="Отправить данные пользователя"
+          >
             {submitButtonText}
           </button>
 

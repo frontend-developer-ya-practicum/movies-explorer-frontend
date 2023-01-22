@@ -14,7 +14,13 @@ function Movies() {
         <SearchForm />
         <hr className="movies__line" />
         <MoviesCardList cards={cards} />
-        <button className="movies__btn">Ещё</button>
+        <button
+          className="movies__btn"
+          type="button"
+          aria-label="Загрузить еще фильмов"
+        >
+          Ещё
+        </button>
       </section>
       <Footer />
     </>

@@ -35,6 +35,7 @@ function MoviesCard({ card }) {
           </div>
           <button
             type="button"
+            aria-label="Сохранить/удалить из избранного"
             className={`card__btn ${className} `}
             onClick={onClick}
           />

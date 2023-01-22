@@ -14,7 +14,11 @@ function SearchForm() {
           placeholder="Фильм"
           required
         ></input>
-        <button className="search__submit-btn" type="submit"></button>
+        <button
+          className="search__submit-btn"
+          type="submit"
+          aria-label="Искать фильм"
+        ></button>
       </form>
 
       <div className="search__checkbox">

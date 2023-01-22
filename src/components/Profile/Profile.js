@@ -37,12 +37,14 @@ function Profile() {
             <button
               className="profile__button profile__button_action_edit"
               type="button"
+              aria-label="Редактировать профиль"
             >
               Редактировать
             </button>
             <button
               className="profile__button profile__button_action_logout"
               type="button"
+              aria-label="Выйти из аккаунта"
             >
               Выйти из аккаунта
             </button>

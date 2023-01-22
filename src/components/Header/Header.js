@@ -59,6 +59,7 @@ function Header() {
               onClick={handleNavMenuOpen}
               className="header__btn header__btn_type_menu"
               type="button"
+              aria-label="Открыть меню навигации"
             />
           </>
         )}
