@@ -8,14 +8,14 @@ import { useState } from "react";
 function Header() {
   const [isNavMenuOpened, setIsNavMenuOpened] = useState(false);
 
-  const isLoggedIn = true;
-
-  function handleOpen() {
+  function handleNavMenuOpen() {
     setIsNavMenuOpened(true);
   }
-  function handleClose() {
+  function handleNavMenuClose() {
     setIsNavMenuOpened(false);
   }
+
+  const isLoggedIn = true;
 
   return (
     <>
@@ -56,7 +56,7 @@ function Header() {
             </Link>
 
             <button
-              onClick={handleOpen}
+              onClick={handleNavMenuOpen}
               className="header__btn header__btn_type_menu"
               type="button"
             />
@@ -64,7 +64,7 @@ function Header() {
         )}
       </header>
 
-      {isNavMenuOpened && <Navigation handleClose={handleClose} />}
+      <Navigation isOpen={isNavMenuOpened} onClose={handleNavMenuClose} />
     </>
   );
 }
