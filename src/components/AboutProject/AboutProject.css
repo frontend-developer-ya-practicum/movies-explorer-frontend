@@ -1,0 +1,137 @@
+.about-project {
+  padding: 110px 70px;
+}
+
+.about-project__title {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  color: black;
+  margin: 0;
+  padding-bottom: 23px;
+  border-bottom: 1px solid black;
+}
+
+.about-project__notes {
+  margin: 70px 0 0;
+  display: flex;
+  gap: 40px;
+}
+
+.about-project__note {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.about-project__note-title {
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+  color: black;
+}
+
+.about-project__note-text {
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: black;
+}
+
+.time-spent {
+  margin: 110px 0 0;
+}
+
+.table {
+  display: grid;
+  grid-template-columns: minmax(100px, 1fr) 4fr;
+}
+
+.table__text {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+}
+
+.table__cell {
+  min-height: 36px;
+}
+
+.table__cell_theme_black {
+  color: white;
+  background-color: black;
+}
+.table__cell_theme_grey {
+  background-color: #f2f2f2;
+}
+.table__cell_theme_transparent {
+  color: #a0a0a0;
+}
+
+@media screen and (max-width: 1023px) {
+  .about-project {
+    padding: 90px 50px;
+  }
+
+  .about-project__note-text {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .about-project__note {
+    gap: 22px;
+  }
+
+  .time-spent {
+    margin: 93px 0 0;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .about-project {
+    padding: 70px 18px;
+  }
+
+  .about-project__title {
+    font-size: 18px;
+    line-height: 22px;
+    padding-bottom: 28px;
+  }
+
+  .about-project__notes {
+    margin: 60px 0 0;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  .about-project__note {
+    gap: 16px;
+  }
+
+  .about-project__note-title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .about-project__note-text {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .time-spent {
+    margin: 60px 0 0;
+  }
+  .table__text {
+    font-size: 11px;
+    line-height: 13px;
+  }
+}

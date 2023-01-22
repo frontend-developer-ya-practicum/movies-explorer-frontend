@@ -1,0 +1,91 @@
+.switch {
+  display: flex;
+}
+
+.switch__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(0 0 0 0);
+}
+
+.switch__input:focus + .switch__pseudo {
+  box-shadow: 0 0 0 0.2rem #ebebeb;
+}
+.switch__input:hover + .switch__pseudo {
+  box-shadow: 0 0 0 0.2rem #ebebeb;
+}
+
+.switch__input:focus + .switch__pseudo .switch__handle {
+  height: 20px;
+  width: 20px;
+  right: 0px;
+  top: 0px;
+}
+.switch__input:hover + .switch__pseudo .switch__handle {
+  height: 20px;
+  width: 20px;
+  right: 0px;
+  top: 0px;
+}
+
+.switch__input:focus:checked + .switch__pseudo {
+  box-shadow: 0 0 0 0.2rem #2be080;
+}
+.switch__input:hover:checked + .switch__pseudo {
+  box-shadow: 0 0 0 0.2rem #2be080;
+}
+
+.switch__input + .switch__pseudo {
+  background-color: #ebebeb;
+}
+.switch__input:checked + .switch__pseudo {
+  background-color: #2be080;
+}
+
+.switch__input + .switch__pseudo .switch__handle {
+  transform: translateX(-16px);
+}
+.switch__input:checked + .switch__pseudo .switch__handle {
+  transform: translateX(0px);
+}
+
+.switch__pseudo {
+  display: inline-block;
+  background-color: #2be080;
+  width: 36px;
+  height: 20px;
+  border-radius: 20px;
+  position: relative;
+  vertical-align: middle;
+  transition: 0.2s linear;
+}
+
+.switch__handle {
+  background: white;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.08);
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
+  right: 2px;
+  top: 2px;
+  position: absolute;
+  transition: 0.2s linear;
+}
+
+.switch__label {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  color: black;
+  margin-left: 14px;
+}
+
+@media screen and (max-width: 576px) {
+  switch__label {
+    font-size: 11px;
+    line-height: 18px;
+  }
+}
