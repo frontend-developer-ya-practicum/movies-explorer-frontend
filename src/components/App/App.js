@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
@@ -18,6 +18,7 @@ function App() {
   const location = useLocation();
   const isProfilePage = location.pathname.includes("/profile");
   const isAuthPage = location.pathname.includes("/sign");
+  const isUnknownPage = location.pathname === "/not-found";
 
   const [isNavigationOpened, setIsNavigationOpened] = useState(false);
 
@@ -30,19 +31,22 @@ function App() {
 
   return (
     <>
-      {!isAuthPage && <Header onClickNavigation={handleNavigationOpen} />}
+      {!isUnknownPage && !isAuthPage && (
+        <Header onClickNavigation={handleNavigationOpen} />
+      )}
 
-      <Switch>
-        <Route exact path="/" component={Main} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/signup" component={Register} />
-        <Route path="/signin" component={Login} />
-        <Route path="/movies" component={Movies} />
-        <Route path="/saved-movies" component={SavedMovies} />
-        <Route path="*" component={NotFound} />
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/signup" element={<Register />} />
+        <Route path="/signin" element={<Login />} />
+        <Route path="/movies" element={<Movies />} />
+        <Route path="/saved-movies" element={<SavedMovies />} />
+        <Route path="/not-found" element={<NotFound />} />
+        <Route path="*" element={<Navigate to="/not-found" replace />} />
+      </Routes>
 
-      {!isProfilePage && !isAuthPage && <Footer />}
+      {!isUnknownPage && !isProfilePage && !isAuthPage && <Footer />}
 
       <Navigation isOpen={isNavigationOpened} onClose={handleNavigationClose} />
     </>
