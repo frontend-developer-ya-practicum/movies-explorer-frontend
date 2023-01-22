@@ -89,6 +89,7 @@
   .popup__container {
     padding: 144px 10px 46px 10px;
     width: 100%;
+    left: 0;
   }
 
   .popup__nav {
