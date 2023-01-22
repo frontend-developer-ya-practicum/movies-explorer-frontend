@@ -19,6 +19,7 @@ function SearchForm() {
           type="submit"
           aria-label="Искать фильм"
         ></button>
+        <div className="search__vertical-line"></div>
       </form>
 
       <div className="search__checkbox">

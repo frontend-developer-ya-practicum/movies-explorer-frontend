@@ -10,6 +10,33 @@
   clip-path: inset(0 0 0 0);
 }
 
+.switch__input:focus + .switch__pseudo {
+  box-shadow: 0 0 0 0.2rem #ebebeb;
+}
+.switch__input:hover + .switch__pseudo {
+  box-shadow: 0 0 0 0.2rem #ebebeb;
+}
+
+.switch__input:focus + .switch__pseudo .switch__handle {
+  height: 20px;
+  width: 20px;
+  right: 0px;
+  top: 0px;
+}
+.switch__input:hover + .switch__pseudo .switch__handle {
+  height: 20px;
+  width: 20px;
+  right: 0px;
+  top: 0px;
+}
+
+.switch__input:focus:checked + .switch__pseudo {
+  box-shadow: 0 0 0 0.2rem #2be080;
+}
+.switch__input:hover:checked + .switch__pseudo {
+  box-shadow: 0 0 0 0.2rem #2be080;
+}
+
 .switch__input + .switch__pseudo {
   background-color: #ebebeb;
 }
