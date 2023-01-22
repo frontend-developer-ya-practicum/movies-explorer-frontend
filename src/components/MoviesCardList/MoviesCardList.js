@@ -12,13 +12,11 @@ function MoviesCardList({ cards }) {
       {isLoading && <Preloader />}
 
       {!isLoading && (
-        <>
-          <ul className="cards__items">
-            {cards.map((card) => (
-              <MoviesCard key={card._id} card={card} />
-            ))}
-          </ul>
-        </>
+        <ul className="cards__items">
+          {cards.map((card) => (
+            <MoviesCard key={card._id} card={card} />
+          ))}
+        </ul>
       )}
     </section>
   );

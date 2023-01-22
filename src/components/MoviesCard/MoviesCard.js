@@ -23,7 +23,7 @@ function MoviesCard({ card }) {
     ? "card__btn_type_delete"
     : isSaved
     ? "card__btn_type_saved"
-    : "card_btn_type_save";
+    : "card__btn_type_save";
 
   return (
     <li className="cards__item">
