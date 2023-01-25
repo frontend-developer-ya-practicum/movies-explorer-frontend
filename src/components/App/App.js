@@ -7,9 +7,12 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
+import { useEffect, useState } from "react";
 
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import Login from "../Login/Login";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
@@ -19,7 +22,6 @@ import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import mainApi from "../../utils/MainApi";
-import { useState } from "react";
 
 function App() {
   const location = useLocation();
@@ -29,10 +31,37 @@ function App() {
   const isUnknownPage = location.pathname === "/not-found";
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
 
   const [isNavigationOpened, setIsNavigationOpened] = useState(false);
 
   const [apiError, setApiError] = useState("");
+
+  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      mainApi
+        .getCurrentUser()
+        .then((user) => {
+          setCurrentUser(user);
+          setIsLoggedIn(true);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      mainApi
+        .getCurrentUser()
+        .then((user) => {
+          setCurrentUser(user);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [isLoggedIn]);
 
   function handleNavigationOpen() {
     setIsNavigationOpened(true);
@@ -46,6 +75,7 @@ function App() {
       .register({ name, email, password })
       .then(() => {
         handleSignIn({ email, password });
+        setApiError("");
       })
       .catch(setApiError);
   }
@@ -59,12 +89,37 @@ function App() {
           setIsLoggedIn(true);
           navigation("/movies");
         }
+        setApiError("");
       })
       .catch(setApiError);
   }
 
+  function handleUpdateUser({ name, email }) {
+    mainApi
+      .updateCurrentUser({ name, email })
+      .then((user) => {
+        setCurrentUser(user);
+        setApiError("");
+      })
+      .catch(setApiError)
+      .finally(() => {
+        setIsInfoTooltipPopupOpen(true);
+      });
+  }
+
+  function handleLogout() {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    setCurrentUser({});
+    navigation("/");
+  }
+
+  function closeInfoTooltip() {
+    setIsInfoTooltipPopupOpen(false);
+  }
+
   return (
-    <>
+    <CurrentUserContext.Provider value={currentUser}>
       {!isUnknownPage && !isAuthPage && (
         <Header
           onClickNavigation={handleNavigationOpen}
@@ -74,12 +129,20 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/profile"
+          element={
+            <Profile onLogout={handleLogout} onUpdateUser={handleUpdateUser} />
+          }
+        />
         <Route
           path="/signup"
           element={<Register onRegister={handleSignUp} apiError={apiError} />}
         />
-        <Route path="/signin" element={<Login />} />
+        <Route
+          path="/signin"
+          element={<Login onLogin={handleSignIn} apiError={apiError} />}
+        />
         <Route path="/movies" element={<Movies />} />
         <Route path="/saved-movies" element={<SavedMovies />} />
         <Route path="/not-found" element={<NotFound />} />
@@ -89,7 +152,13 @@ function App() {
       {!isUnknownPage && !isProfilePage && !isAuthPage && <Footer />}
 
       <Navigation isOpen={isNavigationOpened} onClose={handleNavigationClose} />
-    </>
+
+      <InfoTooltip
+        isOpen={isInfoTooltipPopupOpen}
+        apiError={apiError}
+        onClose={closeInfoTooltip}
+      />
+    </CurrentUserContext.Provider>
   );
 }
 

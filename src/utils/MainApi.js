@@ -23,6 +23,27 @@ class MainApi {
     return this._checkResponse(resp);
   }
 
+  async getCurrentUser() {
+    const token = localStorage.getItem("token");
+
+    const resp = await fetch(this._url + "/users/me", {
+      headers: { ...this._headers, authorization: `Bearer ${token}` },
+      method: "GET",
+    });
+    return this._checkResponse(resp);
+  }
+
+  async updateCurrentUser({ name, email }) {
+    const token = localStorage.getItem("token");
+
+    const resp = await fetch(this._url + "/users/me", {
+      headers: { ...this._headers, authorization: `Bearer ${token}` },
+      method: "PATCH",
+      body: JSON.stringify({ name, email }),
+    });
+    return this._checkResponse(resp);
+  }
+
   async _checkResponse(res) {
     const data = await res.json();
     if (res.ok) {

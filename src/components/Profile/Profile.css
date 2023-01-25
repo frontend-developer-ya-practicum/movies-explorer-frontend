@@ -62,6 +62,7 @@
   text-align: right;
   color: #000000;
   border: none;
+  width: 80%;
 }
 
 .profile__input:focus {
