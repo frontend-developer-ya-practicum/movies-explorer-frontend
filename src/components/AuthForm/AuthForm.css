@@ -72,11 +72,6 @@
   font-size: 11px;
   line-height: 13px;
   color: #ff004c;
-  visibility: hidden;
-}
-
-.form__submit-error_active {
-  visibility: visible;
 }
 
 .form__text {

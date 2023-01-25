@@ -1,6 +1,12 @@
 import "./App.css";
 
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
@@ -12,15 +18,21 @@ import NotFound from "../NotFound/NotFound";
 import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import SavedMovies from "../SavedMovies/SavedMovies";
+import mainApi from "../../utils/MainApi";
 import { useState } from "react";
 
 function App() {
   const location = useLocation();
+  const navigation = useNavigate();
   const isProfilePage = location.pathname.includes("/profile");
   const isAuthPage = location.pathname.includes("/sign");
   const isUnknownPage = location.pathname === "/not-found";
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const [isNavigationOpened, setIsNavigationOpened] = useState(false);
+
+  const [apiError, setApiError] = useState("");
 
   function handleNavigationOpen() {
     setIsNavigationOpened(true);
@@ -29,16 +41,44 @@ function App() {
     setIsNavigationOpened(false);
   }
 
+  function handleSignUp({ name, email, password }) {
+    mainApi
+      .register({ name, email, password })
+      .then(() => {
+        handleSignIn({ email, password });
+      })
+      .catch(setApiError);
+  }
+
+  function handleSignIn({ email, password }) {
+    mainApi
+      .login({ email, password })
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+          setIsLoggedIn(true);
+          navigation("/movies");
+        }
+      })
+      .catch(setApiError);
+  }
+
   return (
     <>
       {!isUnknownPage && !isAuthPage && (
-        <Header onClickNavigation={handleNavigationOpen} />
+        <Header
+          onClickNavigation={handleNavigationOpen}
+          isLoggedIn={isLoggedIn}
+        />
       )}
 
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/signup" element={<Register />} />
+        <Route
+          path="/signup"
+          element={<Register onRegister={handleSignUp} apiError={apiError} />}
+        />
         <Route path="/signin" element={<Login />} />
         <Route path="/movies" element={<Movies />} />
         <Route path="/saved-movies" element={<SavedMovies />} />
