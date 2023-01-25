@@ -25,7 +25,7 @@
   background-color: #f9f9f9;
   border: none;
   padding: 0 10px;
-  margin-right: 46px;
+  margin-right: 30px;
   width: 100%;
   min-height: 34px;
 }
@@ -59,7 +59,6 @@
 .search__vertical-line {
   border-left: 1px solid #e8e8e8;
   height: 40px;
-  margin-left: 0;
 }
 
 .search__submit-btn:hover {
@@ -73,6 +72,10 @@
 }
 
 @media screen and (max-width: 1023px) {
+  .search__input {
+    margin-right: 19px;
+  }
+
   .search__submit-btn {
     margin-right: 19px;
   }
