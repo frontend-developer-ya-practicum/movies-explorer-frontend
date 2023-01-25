@@ -19,6 +19,7 @@ import Movies from "../Movies/Movies";
 import Navigation from "../Navigation/Navigation";
 import NotFound from "../NotFound/NotFound";
 import Profile from "../Profile/Profile";
+import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
 import Register from "../Register/Register";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import mainApi from "../../utils/MainApi";
@@ -129,12 +130,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Main />} />
-        <Route
-          path="/profile"
-          element={
-            <Profile onLogout={handleLogout} onUpdateUser={handleUpdateUser} />
-          }
-        />
+
         <Route
           path="/signup"
           element={<Register onRegister={handleSignUp} apiError={apiError} />}
@@ -143,8 +139,22 @@ function App() {
           path="/signin"
           element={<Login onLogin={handleSignIn} apiError={apiError} />}
         />
-        <Route path="/movies" element={<Movies />} />
-        <Route path="/saved-movies" element={<SavedMovies />} />
+
+        <Route element={<ProtectedRoutes isLoggedIn={isLoggedIn} />}>
+          <Route
+            path="/profile"
+            element={
+              <Profile
+                onLogout={handleLogout}
+                onUpdateUser={handleUpdateUser}
+              />
+            }
+          />
+
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/saved-movies" element={<SavedMovies />} />
+        </Route>
+
         <Route path="/not-found" element={<NotFound />} />
         <Route path="*" element={<Navigate to="/not-found" replace />} />
       </Routes>
