@@ -40,7 +40,15 @@ function MoviesCard({ card }) {
             onClick={onClick}
           />
         </div>
-        <img className="card__image" src={card.image.url} alt={card.nameRU} />
+
+        <a
+          className="card__trailer-link"
+          href={card.trailerLink}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <img className="card__image" src={card.image.url} alt={card.nameRU} />
+        </a>
       </section>
     </li>
   );
