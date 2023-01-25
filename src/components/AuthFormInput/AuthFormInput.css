@@ -1,6 +1,7 @@
 .form__field {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .form__field-name {
@@ -43,9 +44,6 @@
   font-size: 10px;
   line-height: 12px;
   color: #ff4062;
-  visibility: hidden;
-}
-
-.form__input-error_active {
-  visibility: visible;
+  position: absolute;
+  bottom: -12px;
 }

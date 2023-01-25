@@ -1,19 +1,31 @@
 import "./AuthFormInput.css";
 
-function AuthFormInput({ value, onChange, title, type, id, name }) {
+function AuthFormInput({
+  value,
+  onChange,
+  title,
+  type,
+  id,
+  name,
+  error,
+  pattern,
+}) {
   return (
     <label className="form__field" htmlFor={type}>
       <span className="form__field-name">{title}</span>
       <input
         value={value}
-        className="form__input"
+        className={`form__input ${
+          error !== "" ? "form__input_type_error" : ""
+        }`}
         onChange={onChange}
         name={name}
         id={id}
         type={type}
+        pattern={pattern}
         required
       />
-      <span className="form__input-error">Что-то пошло не так...</span>
+      <span className="form__input-error">{error || ""}</span>
     </label>
   );
 }

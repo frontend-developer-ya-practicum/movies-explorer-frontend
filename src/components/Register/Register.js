@@ -2,33 +2,25 @@ import "./Register.css";
 
 import AuthForm from "../AuthForm/AuthForm";
 import AuthFormInput from "../AuthFormInput/AuthFormInput";
-import { useState } from "react";
+import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 
 function Register({ onRegister, apiError }) {
-  const [credentials, setCredentials] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-
-  function handleChange(evt) {
-    const { name, value } = evt.target;
-
-    setCredentials({
-      ...credentials,
-      [name]: value,
-    });
-  }
+  const { values, handleChange, errors, isValid } = useFormWithValidation();
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    onRegister(credentials);
+    onRegister({
+      name: values.name,
+      email: values.email,
+      password: values.password,
+    });
   }
 
   return (
     <AuthForm
       apiError={apiError}
       onSubmit={handleSubmit}
+      isDisabled={!isValid}
       title="Добро пожаловать!"
       submitButtonText="Зарегистрироваться"
       formText="Уже зарегистрированы?"
@@ -36,15 +28,18 @@ function Register({ onRegister, apiError }) {
       formLinkText="Войти"
     >
       <AuthFormInput
-        value={credentials.name}
+        value={values.name}
+        error={errors.name}
         onChange={handleChange}
         title="Имя"
         type="text"
         id="name"
         name="name"
+        pattern="^[A-Za-zА-Яа-я-\s]+$"
       />
       <AuthFormInput
-        value={credentials.email}
+        value={values.email}
+        error={errors.email}
         onChange={handleChange}
         title="E-mail"
         type="email"
@@ -52,7 +47,8 @@ function Register({ onRegister, apiError }) {
         name="email"
       />
       <AuthFormInput
-        value={credentials.password}
+        value={values.password}
+        error={errors.password}
         onChange={handleChange}
         title="Пароль"
         type="password"

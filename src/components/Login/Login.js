@@ -2,32 +2,24 @@ import "./Login.css";
 
 import AuthForm from "../AuthForm/AuthForm";
 import AuthFormInput from "../AuthFormInput/AuthFormInput";
-import { useState } from "react";
+import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 
 function Login({ onLogin, apiError }) {
-  const [credentials, setCredentials] = useState({
-    email: "",
-    password: "",
-  });
-
-  function handleChange(evt) {
-    const { name, value } = evt.target;
-
-    setCredentials({
-      ...credentials,
-      [name]: value,
-    });
-  }
+  const { values, handleChange, errors, isValid } = useFormWithValidation();
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    onLogin(credentials);
+    onLogin({
+      email: values.email,
+      password: values.password,
+    });
   }
 
   return (
     <AuthForm
       apiError={apiError}
       onSubmit={handleSubmit}
+      isDisabled={!isValid}
       title="Рады видеть!"
       submitButtonText="Войти"
       formText="Ещё не зарегистрированы?"
@@ -35,20 +27,22 @@ function Login({ onLogin, apiError }) {
       formLinkText="Регистрация"
     >
       <AuthFormInput
-        value={credentials.email}
+        value={values.email || ""}
         onChange={handleChange}
         title="E-mail"
         type="email"
         id="email"
         name="email"
+        error={errors.email}
       />
       <AuthFormInput
-        value={credentials.password}
+        value={values.password || ""}
         onChange={handleChange}
         title="Пароль"
         type="password"
         id="password"
         name="password"
+        error={errors.password}
       />
     </AuthForm>
   );

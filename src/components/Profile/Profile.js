@@ -1,32 +1,31 @@
 import "./Profile.css";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 
 function Profile({ onLogout, onUpdateUser }) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormWithValidation();
   const currentUser = useContext(CurrentUserContext);
-
-  useEffect(() => {
-    setName(currentUser.name);
-    setEmail(currentUser.email);
-  }, [currentUser]);
-
-  function handleChangeName(e) {
-    setName(e.target.value);
-  }
-
-  function handleChangeEmail(e) {
-    setEmail(e.target.value);
-  }
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    onUpdateUser({ name, email });
+    onUpdateUser({
+      name: values.name,
+      email: values.email,
+    });
   }
+
+  const isEdited =
+    currentUser.name !== values.name || currentUser.email !== values.email;
+
+  useEffect(() => {
+    if (currentUser) {
+      resetForm(currentUser, {}, true);
+    }
+  }, [currentUser, resetForm]);
 
   return (
     <section className="profile">
@@ -36,33 +35,40 @@ function Profile({ onLogout, onUpdateUser }) {
           <label className="profile__field" htmlFor="username">
             <span className="profile__field-name">Имя</span>
             <input
-              value={name || ""}
-              onChange={handleChangeName}
+              value={values.name || ""}
+              error={errors.name}
+              onChange={handleChange}
               className="profile__input"
-              name="username"
-              id="username"
-              type="username"
+              name="name"
+              id="name"
+              type="text"
+              pattern="^[A-Za-zА-Яа-я-\s]+$"
               required
             />
+            <span className="profile__input-error">{errors.name}</span>
           </label>
 
           <label className="profile__field" htmlFor="email">
             <span className="profile__field-name">E-mail</span>
             <input
-              value={email || ""}
-              onChange={handleChangeEmail}
+              value={values.email || ""}
+              error={errors.email}
+              onChange={handleChange}
               className="profile__input"
               name="email"
               id="email"
               type="email"
               required
             />
+            <span className="profile__input-error">{errors.email}</span>
           </label>
         </fieldset>
 
         <fieldset className="profile__buttons">
           <button
-            className="profile__button profile__button_action_edit"
+            className={`profile__button profile__button_action_edit ${
+              !isValid || !isEdited ? "profile__button_disabled" : ""
+            }`}
             type="submit"
             aria-label="Редактировать профиль"
           >

@@ -6,6 +6,7 @@ import Logo from "../Logo/Logo";
 function AuthForm({
   apiError,
   onSubmit,
+  isDisabled,
   children,
   title,
   submitButtonText,
@@ -25,8 +26,11 @@ function AuthForm({
           <span className="form__submit-error">{apiError}</span>
           <button
             type="submit"
-            className="form__submit-button"
+            className={`form__submit-button ${
+              isDisabled ? "form__submit-button_disabled" : ""
+            }`}
             aria-label="Отправить данные пользователя"
+            disabled={isDisabled}
           >
             {submitButtonText}
           </button>
