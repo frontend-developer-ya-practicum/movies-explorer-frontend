@@ -44,10 +44,56 @@ class MainApi {
     return this._checkResponse(resp);
   }
 
-  async _checkResponse(res) {
-    const data = await res.json();
-    if (res.ok) {
+  async getMovies() {
+    const token = localStorage.getItem("token");
+
+    const resp = await fetch(this._url + "/movies", {
+      headers: { ...this._headers, authorization: `Bearer ${token}` },
+      method: "GET",
+    });
+    return this._checkResponse(resp);
+  }
+
+  async postMovie(movie) {
+    const token = localStorage.getItem("token");
+
+    const resp = await fetch(this._url + "/movies", {
+      headers: { ...this._headers, authorization: `Bearer ${token}` },
+      method: "POST",
+      body: JSON.stringify({
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: movie.image.url,
+        trailerLink: movie.trailerLink,
+        thumbnail: movie.image.formats.thumbnail.url,
+        movieId: movie.id,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
+      }),
+    });
+    return this._checkResponse(resp);
+  }
+
+  async deleteMovie(movie) {
+    const token = localStorage.getItem("token");
+
+    const resp = await fetch(`${this._url}/movies/${movie._id}`, {
+      headers: { ...this._headers, authorization: `Bearer ${token}` },
+      method: "DELETE",
+    });
+    return this._checkResponse(resp);
+  }
+
+  async _checkResponse(resp) {
+    const data = await resp.json();
+    if (resp.ok) {
       return data;
+    }
+    if (resp.status === 204) {
+      return [];
     }
     return Promise.reject(data.message);
   }

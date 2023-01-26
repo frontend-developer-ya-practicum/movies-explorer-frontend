@@ -15,6 +15,8 @@ class MoviesApi {
     if (resp.ok) {
       data.forEach((movie) => {
         movie.image.url = this._image_url + movie.image.url;
+        movie.image.formats.thumbnail.url =
+          this._image_url + movie.image.formats.thumbnail.url;
       });
       return data;
     }
