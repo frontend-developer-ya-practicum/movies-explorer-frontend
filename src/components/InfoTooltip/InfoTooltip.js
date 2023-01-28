@@ -5,11 +5,11 @@ import { useCallback, useEffect } from "react";
 import errorIcon from "../../images/popup-error.svg";
 import successIcon from "../../images/popup-success.svg";
 
-function InfoTooltip({ isOpen, onClose, apiError }) {
+function InfoTooltip({ isOpen, onClose, error }) {
   const successMessage = "Запрос выполнен успешно!";
 
-  const icon = apiError ? errorIcon : successIcon;
-  const message = apiError || successMessage;
+  const icon = error ? errorIcon : successIcon;
+  const message = error || successMessage;
 
   const handleEscClose = useCallback(
     (e) => {

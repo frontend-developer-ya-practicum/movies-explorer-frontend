@@ -14,7 +14,7 @@ function AuthFormInput({
     <label className="form__field" htmlFor={type}>
       <span className="form__field-name">{title}</span>
       <input
-        value={value}
+        value={value || ""}
         className={`form__input ${
           error !== "" ? "form__input_type_error" : ""
         }`}
