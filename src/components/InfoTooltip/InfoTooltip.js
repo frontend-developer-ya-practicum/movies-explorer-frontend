@@ -49,7 +49,7 @@ function InfoTooltip() {
           src={isSuccess ? successIcon : errorIcon}
           alt={message}
         />
-        <p className="tooltip__icon-caption">{message}</p>
+        <p className="tooltip__icon-caption">{message || ""}</p>
       </div>
     </div>
   );

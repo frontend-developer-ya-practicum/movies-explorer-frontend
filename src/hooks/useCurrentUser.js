@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 
 import { currentUserContext } from "../contexts/currentUserContext";
 import mainApi from "../utils/MainApi";
-import moviesApi from "../utils/MoviesApi";
 import { useAuth } from "./useAuth";
 import { useTooltip } from "./useTooltip";
 
@@ -24,9 +23,7 @@ function useCurrentUserProvide() {
   const { isLoggedIn, signOut } = useAuth();
 
   const [user, setUser] = useState({});
-  const [movies, setMovies] = useState([]);
-  const [savedMovies, setSavedMovies] = useState([]);
-
+  const [savedMovies, setSavedMovies] = useState(new Map());
   const tooltip = useTooltip();
 
   useEffect(() => {
@@ -34,7 +31,9 @@ function useCurrentUserProvide() {
       Promise.all([mainApi.getCurrentUser(), mainApi.getMovies()])
         .then(([user, movies]) => {
           setUser(user);
-          setMovies(movies);
+          movies.forEach((movie) => {
+            setMovie(movie);
+          });
         })
         .catch((err) => {
           tooltip.open(err, false);
@@ -48,36 +47,33 @@ function useCurrentUserProvide() {
     return setUser(newUser);
   }
 
-  function getMovies() {
-    return moviesApi.getMovies().then((movies) => {
-      setMovies(movies);
+  function setMovie(movie) {
+    setSavedMovies((map) => new Map(map.set(movie.movieId, movie)));
+  }
+
+  function getMovie(movieId) {
+    return savedMovies.get(movieId);
+  }
+
+  function deleteMovie(movieId) {
+    setSavedMovies((map) => {
+      const copy = new Map(map);
+      copy.delete(movieId);
+      return copy;
     });
   }
 
-  async function saveMovie(movie) {
-    const savedMovie = await mainApi.postMovie(movie);
-    setSavedMovies([...savedMovies, savedMovie]);
-  }
-
-  function deleteMovie(movie) {
-    const savedMovie = savedMovies.find(
-      (m) => m.movieId === movie.id || m.movieId === movie.movieId
-    );
-
-    return mainApi.deleteMovie(savedMovie).then(() => {
-      setSavedMovies((state) => {
-        state.filter((m) => m.movieId !== saveMovie.movieId);
-      });
-    });
+  function hasMovie(movieId) {
+    return savedMovies.has(movieId);
   }
 
   return {
     user,
-    movies,
     savedMovies,
     updateMe,
-    getMovies,
-    saveMovie,
+    setMovie,
+    getMovie,
     deleteMovie,
+    hasMovie,
   };
 }

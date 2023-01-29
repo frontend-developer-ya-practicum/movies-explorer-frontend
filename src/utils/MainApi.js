@@ -88,12 +88,12 @@ class MainApi {
   }
 
   async _checkResponse(resp) {
-    const data = await resp.json();
-    if (resp.ok) {
-      return data;
-    }
     if (resp.status === 204) {
       return [];
+    }
+    const data = await resp.json();
+    if (resp.ok || resp.status === 201) {
+      return data;
     }
     return Promise.reject(data.message);
   }
