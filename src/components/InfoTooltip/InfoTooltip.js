@@ -4,20 +4,18 @@ import { useCallback, useEffect } from "react";
 
 import errorIcon from "../../images/popup-error.svg";
 import successIcon from "../../images/popup-success.svg";
+import { useTooltip } from "../../hooks/useTooltip";
 
-function InfoTooltip({ isOpen, onClose, error }) {
-  const successMessage = "Запрос выполнен успешно!";
-
-  const icon = error ? errorIcon : successIcon;
-  const message = error || successMessage;
+function InfoTooltip() {
+  const { message, isOpened, isSuccess, close } = useTooltip();
 
   const handleEscClose = useCallback(
     (e) => {
       if (e.code === "Escape") {
-        onClose();
+        close();
       }
     },
-    [onClose]
+    [close]
   );
 
   useEffect(() => {
@@ -29,9 +27,9 @@ function InfoTooltip({ isOpen, onClose, error }) {
 
   return (
     <div
-      className={`tooltip ${isOpen && "tooltip_opened"}`}
+      className={`tooltip ${isOpened && "tooltip_opened"}`}
       onClick={() => {
-        onClose();
+        close();
       }}
     >
       <div
@@ -41,12 +39,16 @@ function InfoTooltip({ isOpen, onClose, error }) {
         }}
       >
         <button
-          onClick={onClose}
+          onClick={close}
           className="tooltip__close"
           type="button"
           aria-label="Закрыть окно"
         />
-        <img className="tooltip__icon" src={icon} alt={message} />
+        <img
+          className="tooltip__icon"
+          src={isSuccess ? successIcon : errorIcon}
+          alt={message}
+        />
         <p className="tooltip__icon-caption">{message}</p>
       </div>
     </div>

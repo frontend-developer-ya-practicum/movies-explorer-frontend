@@ -4,6 +4,7 @@ import { currentUserContext } from "../contexts/currentUserContext";
 import mainApi from "../utils/MainApi";
 import moviesApi from "../utils/MoviesApi";
 import { useAuth } from "./useAuth";
+import { useTooltip } from "./useTooltip";
 
 export function CurrentUserProvider({ children }) {
   const value = useCurrentUserProvide();
@@ -20,11 +21,13 @@ export const useCurrentUser = () => {
 };
 
 function useCurrentUserProvide() {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, signOut } = useAuth();
 
   const [user, setUser] = useState({});
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
+
+  const tooltip = useTooltip();
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -33,7 +36,10 @@ function useCurrentUserProvide() {
           setUser(user);
           setMovies(movies);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          tooltip.open(err, false);
+          signOut();
+        });
     }
   }, [isLoggedIn]);
 
