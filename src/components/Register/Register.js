@@ -48,6 +48,8 @@ function Register() {
         id="name"
         name="name"
         pattern="^[A-Za-zА-Яа-я-\s]+$"
+        minLength="2"
+        maxLength="30"
       />
       <AuthFormInput
         value={values.email}

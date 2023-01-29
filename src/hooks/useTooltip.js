@@ -8,9 +8,11 @@ export function TooltipProvider({ children }) {
   const [isOpened, setIsOpened] = useState(false);
 
   function close() {
-    setMessage("");
-    setIsSuccess(undefined);
     setIsOpened(false);
+    setTimeout(() => {
+      setMessage("");
+      setIsSuccess(undefined);
+    }, 500);
   }
 
   function open(message, isSuccess) {

@@ -39,6 +39,9 @@ function useCurrentUserProvide() {
           tooltip.open(err, false);
           signOut();
         });
+    } else {
+      setUser({});
+      setSavedMovies(new Map());
     }
   }, [isLoggedIn]);
 

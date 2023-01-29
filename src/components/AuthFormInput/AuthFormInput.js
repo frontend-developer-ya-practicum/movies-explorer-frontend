@@ -9,6 +9,8 @@ function AuthFormInput({
   name,
   error,
   pattern,
+  minLength,
+  maxLength,
 }) {
   return (
     <label className="form__field" htmlFor={type}>
@@ -23,6 +25,8 @@ function AuthFormInput({
         id={id}
         type={type}
         pattern={pattern}
+        minLength={minLength}
+        maxLength={maxLength}
         required
       />
       <span className="form__input-error">{error || ""}</span>

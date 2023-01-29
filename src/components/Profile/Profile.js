@@ -57,6 +57,8 @@ function Profile() {
               id="name"
               type="text"
               pattern="^[A-Za-zА-Яа-я-\s]+$"
+              minLength="2"
+              maxLength="30"
               required
             />
             <span className="profile__input-error">{errors.name}</span>
