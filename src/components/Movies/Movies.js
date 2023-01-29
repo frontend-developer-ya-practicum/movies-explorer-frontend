@@ -17,6 +17,7 @@ function Movies() {
   const [query, setQuery] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
+  const [search, setSearch] = useState(false);
 
   const tooltip = useTooltip();
 
@@ -39,6 +40,9 @@ function Movies() {
   }, [movies]);
   useEffect(() => {
     localStorage.setItem("searchMovieQuery", query);
+    if (query) {
+      setSearch(true);
+    }
   }, [query]);
   useEffect(() => {
     localStorage.setItem("isShortMovies", isShort);
@@ -102,6 +106,7 @@ function Movies() {
         OnMovieDelete={handleDeleteMovie}
         OnMovieSave={handleSaveMovie}
         isLoading={isLoading}
+        search={search}
       />
       {!isLoading && (
         <button

@@ -5,14 +5,20 @@ import Preloader from "../Preloader/Preloader";
 import React from "react";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 
-function MoviesCardList({ cards, OnMovieDelete, OnMovieSave, isLoading }) {
+function MoviesCardList({
+  cards,
+  OnMovieDelete,
+  OnMovieSave,
+  isLoading,
+  search,
+}) {
   const user = useCurrentUser();
 
   return (
     <section className="cards">
       {isLoading && <Preloader />}
 
-      {!isLoading && cards && (
+      {!isLoading && cards?.length > 0 && (
         <ul className="cards__items">
           {cards.map((card) => (
             <MoviesCard
@@ -25,6 +31,11 @@ function MoviesCardList({ cards, OnMovieDelete, OnMovieSave, isLoading }) {
           ))}
         </ul>
       )}
+
+      {!isLoading && search && cards?.length === 0 && (
+        <p className="cards__error">Ничего не найдено.</p>
+      )}
+      <></>
     </section>
   );
 }

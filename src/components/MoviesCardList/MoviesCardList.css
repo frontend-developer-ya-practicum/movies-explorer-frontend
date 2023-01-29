@@ -34,6 +34,16 @@
   transition: 0.5s linear;
 }
 
+.cards__error {
+  list-style: none;
+  margin: 0 auto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  color: #a0a0a0;
+}
+
 @media screen and (max-width: 1023px) {
   .cards__items {
     gap: 30px 36px;

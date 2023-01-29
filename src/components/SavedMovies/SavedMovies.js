@@ -16,6 +16,7 @@ function SavedMovies() {
   const [query, setQuery] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
+  const [search, setSearch] = useState(false);
 
   const tooltip = useTooltip();
 
@@ -37,6 +38,9 @@ function SavedMovies() {
 
   useEffect(() => {
     localStorage.setItem("searchSavedMovieQuery", query);
+    if (query) {
+      setSearch(query);
+    }
   }, [query]);
 
   useEffect(() => {
@@ -83,6 +87,7 @@ function SavedMovies() {
         OnMovieDelete={handleDeleteMovie}
         OnMovieSave={handleSaveMovie}
         isLoading={isLoading}
+        search={search}
       />
     </section>
   );
