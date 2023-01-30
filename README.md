@@ -4,4 +4,6 @@
 
 ## Ссылки
 * Макет [Figma](https://www.figma.com/file/mU92g5TzCdvpDa2s98e0zc/DiplomaMorev?t=lgVhiIQtwgS5HQ11-6) [Я.Диск](https://disk.yandex.ru/d/nlJjcJkKKx7W2A)
-* [Репозиторий](https://github.com/hikjik/movies-explorer-frontend)
+* [Фронтенд](https://github.com/hikjik/movies-explorer-frontend)
+* [Бэкенд](https://github.com/hikjik/movies-explorer-api)
+* [Сайт](https://mesto-hikjik.students.nomoredomains.club/)
