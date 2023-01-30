@@ -33,10 +33,12 @@ function App() {
           <Routes>
             <Route path="/" element={<Main />} />
 
-            <Route path="/signup" element={<Register />} />
-            <Route path="/signin" element={<Login />} />
+            <Route element={<ProtectedRoutes path="/" isSignIn={false} />}>
+              <Route path="/signup" element={<Register />} />
+              <Route path="/signin" element={<Login />} />
+            </Route>
 
-            <Route element={<ProtectedRoutes path="/signin" />}>
+            <Route element={<ProtectedRoutes path="/signin" isSignIn={true} />}>
               <Route path="/profile" element={<Profile />} />
 
               <Route path="/movies" element={<Movies />} />
