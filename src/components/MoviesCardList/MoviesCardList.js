@@ -11,6 +11,7 @@ function MoviesCardList({
   OnMovieSave,
   isLoading,
   search,
+  moviesLimit,
 }) {
   const user = useCurrentUser();
 
@@ -20,7 +21,7 @@ function MoviesCardList({
 
       {!isLoading && cards?.length > 0 && (
         <ul className="cards__items">
-          {cards.map((card) => (
+          {cards.slice(0, moviesLimit).map((card) => (
             <MoviesCard
               key={card.id || card._id}
               card={card}

@@ -9,6 +9,7 @@ import mainApi from "../../utils/MainApi";
 import moviesApi from "../../utils/MoviesApi";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import { useTooltip } from "../../hooks/useTooltip";
+import useWindowSize from "../../hooks/useWindowSize";
 
 function Movies() {
   const [isShort, setIsShort] = useState(false);
@@ -18,10 +19,28 @@ function Movies() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [search, setSearch] = useState(false);
+  const [moviesLimit, setMoviesLimit] = useState(0);
+  const [isMoreButtonActive, setIsMoreButtonActive] = useState(false);
 
   const tooltip = useTooltip();
-
   const user = useCurrentUser();
+  const windowSize = useWindowSize();
+
+  useEffect(() => {
+    const width = windowSize.width;
+    if (width > 1023) {
+      setMoviesLimit(12);
+    } else if (width > 576) {
+      setMoviesLimit(8);
+    } else {
+      setMoviesLimit(5);
+    }
+  }, [windowSize]);
+
+  useEffect(() => {
+    const list = isShort ? shortMovies : movies;
+    setIsMoreButtonActive(list.length > moviesLimit);
+  }, [moviesLimit, isShort, movies, shortMovies]);
 
   useEffect(() => {
     setIsShort(localStorage.getItem("isShortMovies") === "true");
@@ -47,6 +66,15 @@ function Movies() {
   useEffect(() => {
     localStorage.setItem("isShortMovies", isShort);
   }, [isShort]);
+
+  function handleClickMoreButton() {
+    const width = windowSize.width;
+    if (width > 1023) {
+      setMoviesLimit(moviesLimit + 3);
+    } else {
+      setMoviesLimit(moviesLimit + 2);
+    }
+  }
 
   function handleChangeCheckbox() {
     setIsShort(!isShort);
@@ -107,12 +135,14 @@ function Movies() {
         OnMovieSave={handleSaveMovie}
         isLoading={isLoading}
         search={search}
+        moviesLimit={moviesLimit}
       />
-      {!isLoading && (
+      {!isLoading && isMoreButtonActive && (
         <button
           className="movies__btn"
           type="button"
           aria-label="Загрузить еще фильмов"
+          onClick={handleClickMoreButton}
         >
           Ещё
         </button>
