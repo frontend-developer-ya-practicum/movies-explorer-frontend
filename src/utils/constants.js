@@ -1,0 +1,22 @@
+export const SHORT_FILM_DURATION = 40;
+
+export const GRID_CONFIG = {
+  MOBILE: {
+    MIN_WIDTH: 320,
+    MAX_WIDTH: 480,
+    CARDS: 5,
+    ADDITIONAL_CARDS: 2,
+  },
+  TABLET: {
+    MIN_WIDTH: 481,
+    MAX_WIDTH: 1024,
+    CARDS: 8,
+    ADDITIONAL_CARDS: 2,
+  },
+  DESKTOP: {
+    MIN_WIDTH: 1025,
+    MAX_WIDTH: 1280,
+    CARDS: 12,
+    ADDITIONAL_CARDS: 3,
+  },
+};

@@ -3,6 +3,7 @@ import "./Movies.css";
 import { FilterMoviesByName, FilterShortFilms } from "../../utils/movieUtils";
 import { useEffect, useState } from "react";
 
+import { GRID_CONFIG } from "../../utils/constants";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import SearchForm from "../SearchForm/SearchForm";
 import mainApi from "../../utils/MainApi";
@@ -28,12 +29,12 @@ function Movies() {
 
   useEffect(() => {
     const width = windowSize.width;
-    if (width > 1023) {
-      setMoviesLimit(12);
-    } else if (width > 576) {
-      setMoviesLimit(8);
+    if (width <= GRID_CONFIG.MOBILE.MAX_WIDTH) {
+      setMoviesLimit(GRID_CONFIG.MOBILE.CARDS);
+    } else if (width <= GRID_CONFIG.TABLET.MAX_WIDTH) {
+      setMoviesLimit(GRID_CONFIG.TABLET.CARDS);
     } else {
-      setMoviesLimit(5);
+      setMoviesLimit(GRID_CONFIG.DESKTOP.CARDS);
     }
   }, [windowSize]);
 
@@ -69,10 +70,12 @@ function Movies() {
 
   function handleClickMoreButton() {
     const width = windowSize.width;
-    if (width > 1023) {
-      setMoviesLimit(moviesLimit + 3);
+    if (width <= GRID_CONFIG.MOBILE.MAX_WIDTH) {
+      setMoviesLimit(moviesLimit + GRID_CONFIG.MOBILE.ADDITIONAL_CARDS);
+    } else if (width <= GRID_CONFIG.TABLET.MAX_WIDTH) {
+      setMoviesLimit(moviesLimit + GRID_CONFIG.TABLET.ADDITIONAL_CARDS);
     } else {
-      setMoviesLimit(moviesLimit + 2);
+      setMoviesLimit(moviesLimit + GRID_CONFIG.DESKTOP.ADDITIONAL_CARDS);
     }
   }
 
