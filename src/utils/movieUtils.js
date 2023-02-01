@@ -1,4 +1,4 @@
-const SHORT_FILM_DURATION = 40;
+import { SHORT_FILM_DURATION } from "./constants";
 
 function NormalizeString(name) {
   return String(name).toLowerCase().trim();

@@ -13,7 +13,6 @@ function SavedMovies() {
   const [isShort, setIsShort] = useState(false);
   const [movies, setMovies] = useState([]);
   const [shortMovies, setShortMovies] = useState([]);
-  const [query, setQuery] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
   const [search, setSearch] = useState(false);
@@ -23,39 +22,26 @@ function SavedMovies() {
   const user = useCurrentUser();
 
   useEffect(() => {
-    setIsShort(localStorage.getItem("isShortSavedMovies") === "true");
-    setQuery(localStorage.getItem("searchSavedMovieQuery") || "");
-
     const foundMovies = Array.from(user.savedMovies.values());
-
     setMovies(foundMovies);
-    setShortMovies(FilterShortFilms(foundMovies));
   }, [user.savedMovies]);
 
   useEffect(() => {
     setShortMovies(FilterShortFilms(movies));
   }, [movies]);
 
-  useEffect(() => {
-    localStorage.setItem("searchSavedMovieQuery", query);
-    if (query) {
-      setSearch(query);
-    }
-  }, [query]);
-
-  useEffect(() => {
-    localStorage.setItem("isShortSavedMovies", isShort);
-  }, [isShort]);
-
   function handleChangeCheckbox() {
     setIsShort(!isShort);
+    setSearch(true);
   }
 
   function handleClickSearch(searchQuery) {
     setIsLoading(true);
+
     const foundMovies = Array.from(user.savedMovies.values());
-    setQuery(searchQuery);
     setMovies(FilterMoviesByName(foundMovies, searchQuery));
+
+    setSearch(true);
     setIsLoading(false);
   }
 
@@ -75,11 +61,9 @@ function SavedMovies() {
   return (
     <section className="movies">
       <SearchForm
-        query={query}
         onSearchMovies={handleClickSearch}
         onChangeCheckbox={handleChangeCheckbox}
         checkboxChecked={isShort}
-        required={false}
       />
       <hr className="movies__line" />
       <MoviesCardList

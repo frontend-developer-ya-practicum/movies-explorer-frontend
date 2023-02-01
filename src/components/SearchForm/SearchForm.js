@@ -9,7 +9,7 @@ function SearchForm({
   onSearchMovies,
   onChangeCheckbox,
   checkboxChecked,
-  required,
+  isLoading,
 }) {
   const { values, handleChange, resetForm, errors } = useFormWithValidation();
 
@@ -37,12 +37,14 @@ function SearchForm({
           type="text"
           placeholder="Фильм"
           name="query"
-          required={required}
+          required
+          disabled={isLoading}
         ></input>
         <button
           className="search__submit-btn"
           type="submit"
           aria-label="Искать фильм"
+          disabled={isLoading}
         ></button>
         <div className="search__vertical-line"></div>
       </form>

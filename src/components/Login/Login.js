@@ -15,8 +15,11 @@ function Login() {
   const { signIn } = useAuth();
   const [apiError, setApiError] = useState("");
 
+  const [isLoading, setIsLoading] = useState(false);
+
   function handleSubmit(evt) {
     evt.preventDefault();
+    setIsLoading(true);
     signIn({
       email: values.email,
       password: values.password,
@@ -24,14 +27,17 @@ function Login() {
       .then(() => {
         navigate("/movies");
       })
-      .catch(setApiError);
+      .catch(setApiError)
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   return (
     <AuthForm
       onSubmit={handleSubmit}
       apiError={apiError}
-      isDisabled={!isValid}
+      isDisabled={!isValid || isLoading}
       title="Рады видеть!"
       submitButtonText="Войти"
       formText="Ещё не зарегистрированы?"

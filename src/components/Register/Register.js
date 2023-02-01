@@ -15,6 +15,8 @@ function Register() {
   const { signUp } = useAuth();
   const [apiError, setApiError] = useState("");
 
+  const [isLoading, setIsLoading] = useState(false);
+
   function handleSubmit(evt) {
     evt.preventDefault();
     signUp({
@@ -25,14 +27,17 @@ function Register() {
       .then(() => {
         navigate("/movies");
       })
-      .catch(setApiError);
+      .catch(setApiError)
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   return (
     <AuthForm
       apiError={apiError}
       onSubmit={handleSubmit}
-      isDisabled={!isValid}
+      isDisabled={!isValid || isLoading}
       title="Добро пожаловать!"
       submitButtonText="Зарегистрироваться"
       formText="Уже зарегистрированы?"
