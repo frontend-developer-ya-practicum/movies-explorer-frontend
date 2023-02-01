@@ -129,7 +129,6 @@ function Movies() {
         onSearchMovies={handleClickSearch}
         onChangeCheckbox={handleChangeCheckbox}
         checkboxChecked={isShort}
-        required={true}
       />
       <hr className="movies__line" />
       <MoviesCardList
