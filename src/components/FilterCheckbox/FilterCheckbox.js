@@ -1,9 +1,14 @@
 import "./FilterCheckbox.css";
 
-function FilterCheckbox({ text }) {
+function FilterCheckbox({ text, onChange, checked }) {
   return (
     <label className="switch">
-      <input className="switch__input" type="checkbox" />
+      <input
+        className="switch__input"
+        type="checkbox"
+        onChange={onChange}
+        checked={checked}
+      />
       <span className="switch__pseudo">
         <span className="switch__handle" />
       </span>

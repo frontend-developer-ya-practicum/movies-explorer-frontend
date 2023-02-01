@@ -55,7 +55,7 @@
   background: #f8f8f8;
   opacity: 0.8;
   border-radius: 6px;
-  color: #000000;
+  color: #a0a0a0;
   pointer-events: none;
 }
 
@@ -72,11 +72,6 @@
   font-size: 11px;
   line-height: 13px;
   color: #ff004c;
-  visibility: hidden;
-}
-
-.form__submit-error_active {
-  visibility: visible;
 }
 
 .form__text {

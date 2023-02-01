@@ -1,7 +1,6 @@
 import "./MoviesCard.css";
 
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
 
 function FormatDuration(duration_m) {
   const hours = Math.floor(duration_m / 60);
@@ -9,14 +8,16 @@ function FormatDuration(duration_m) {
   return `${hours}ч ${minutes}м`;
 }
 
-function MoviesCard({ card }) {
+function MoviesCard({ card, isSaved, OnMovieDelete, OnMovieSave }) {
   const location = useLocation();
   const isSavedMoviesPage = location.pathname.includes("/saved");
 
-  const [isSaved, setIsSaved] = useState(false);
-
   function onClick() {
-    setIsSaved(!isSaved);
+    if (isSaved) {
+      OnMovieDelete(card);
+    } else {
+      OnMovieSave(card);
+    }
   }
 
   const className = isSavedMoviesPage
@@ -40,7 +41,19 @@ function MoviesCard({ card }) {
             onClick={onClick}
           />
         </div>
-        <img className="card__image" src={card.image.url} alt={card.nameRU} />
+
+        <a
+          className="card__trailer-link"
+          href={card.trailerLink}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <img
+            className="card__image"
+            src={card.image.url || card.image}
+            alt={card.nameRU}
+          />
+        </a>
       </section>
     </li>
   );
