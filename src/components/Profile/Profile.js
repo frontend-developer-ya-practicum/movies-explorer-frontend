@@ -1,14 +1,17 @@
 import "./Profile.css";
 
+import { useEffect, useState } from "react";
+
 import { useAuth } from "../../hooks/useAuth";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
-import { useEffect } from "react";
 import { useFormWithValidation } from "../../hooks/useFormWithValidation";
 import { useNavigate } from "react-router-dom";
 import { useTooltip } from "../../hooks/useTooltip";
 
 function Profile() {
   const navigation = useNavigate();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const { values, handleChange, errors, isValid, resetForm } =
     useFormWithValidation();
@@ -26,13 +29,20 @@ function Profile() {
 
   function handleSubmit(evt) {
     evt.preventDefault();
+    setIsLoading(true);
     updateMe({
       name: values.name,
       email: values.email,
-    }).catch((err) => {
-      tooltip.open(err, false);
-    });
-    tooltip.open("Данные пользователя обновлены успешно", true);
+    })
+      .then(() => {
+        tooltip.open("Данные пользователя обновлены успешно", true);
+      })
+      .catch((err) => {
+        tooltip.open(err, false);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   function handleClose() {
@@ -45,7 +55,7 @@ function Profile() {
     <section className="profile">
       <h2 className="profile__title">Привет, {user.name || ""}!</h2>
       <form className="profile__form" onSubmit={handleSubmit}>
-        <fieldset className="profile__fields">
+        <fieldset className="profile__fields" disabled={isLoading}>
           <label className="profile__field" htmlFor="username">
             <span className="profile__field-name">Имя</span>
             <input
@@ -80,7 +90,7 @@ function Profile() {
           </label>
         </fieldset>
 
-        <fieldset className="profile__buttons">
+        <fieldset className="profile__buttons" disabled={isLoading}>
           <button
             className={`profile__button profile__button_action_edit ${
               !isValid || !isEdited ? "profile__button_disabled" : ""

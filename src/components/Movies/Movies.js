@@ -129,6 +129,7 @@ function Movies() {
         onSearchMovies={handleClickSearch}
         onChangeCheckbox={handleChangeCheckbox}
         checkboxChecked={isShort}
+        isLoading={isLoading}
       />
       <hr className="movies__line" />
       <MoviesCardList
