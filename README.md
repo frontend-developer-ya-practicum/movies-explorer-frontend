@@ -1,6 +1,6 @@
 # Movies Explorer Frontend
 
-Фронтенд для проекта Movies Explorer курса веб-разработчик Яндекс.Практикума.
+Фронтенд для проекта Movies Explorer курса веб-разработчик Яндекс.Практикум.
 
 ## Ссылки
 * [Pull Request](https://github.com/hikjik/movies-explorer-frontend/pull/31)
